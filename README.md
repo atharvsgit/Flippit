@@ -1,12 +1,50 @@
-# React + Vite
+# 🎲 Flippit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Flippit is a simple coin flip betting game built with React and Firebase. Users sign up, get 100 virtual coins, and bet on heads or tails. Guess correctly to double your bet — or lose it!
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔐 Email/Password Authentication
+- 💰 100 Coins on Signup
+- 🎮 Coin Flip Betting Game
+- ✅ Win = Double Your Bet
+- ❌ Lose = Lose Your Bet
+- 📥 Dummy Deposit / 💸 Withdraw
+- 🔄 Real-Time Coin Balance (Firestore)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+- **Frontend**: React
+- **Backend**: Firebase Authentication, Firestore
+
+---
+
+## 📦 Setup Instructions
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/your-username/flippit.git
+   cd flippit
+
+2. **Install Dependencies**
+   ```npm install
+
+3. **Setup Firebase**
+   ```
+    Go to Firebase Console
+    Create a project
+    Enable Email/Password Authentication
+    Enable Firestore Database
+    Copy your Firebase config into firebase.js
+
+4. **Start the App**
+   ```npm start
+
+
+
+🧑‍💻 Author
+Built by Atharv Dixit
