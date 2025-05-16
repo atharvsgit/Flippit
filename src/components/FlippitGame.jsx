@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Wallet from './Wallet';
 
 const FlippitGame = () => {
   const { logout, coins, placeBet } = useAuth();
@@ -37,6 +38,7 @@ const FlippitGame = () => {
 
   return (
     <div className="min-h-screen bg-[#0a174e]">
+      <Wallet open={walletOpen} onClose={() => setWalletOpen(false)} />
       {/* Fixed Navbar */}
       <nav className="fixed top-0 left-0 w-full h-16 bg-black flex flex-col sm:flex-row items-center justify-between px-2 sm:px-6 shadow-lg z-50">
         {/* Left: Flippit Logo */}
@@ -60,7 +62,7 @@ const FlippitGame = () => {
           </span>
           <button
             className="bg-[#d3af37] hover:bg-yellow-400 text-black px-2 py-1 sm:px-3 sm:py-1 rounded-lg font-semibold text-xs sm:text-base transition"
-            onClick={() => {setWalletOpen(!walletOpen); console.log(walletOpen)}}
+            onClick={() => {setWalletOpen(!walletOpen)}}
           >
             Wallet
           </button>
