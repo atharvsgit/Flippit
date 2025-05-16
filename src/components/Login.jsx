@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase.js'; 
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/game');
+    }
+  }, [user, navigate]);
 
   async function handleAuth(e) {
     e.preventDefault();
@@ -16,6 +26,7 @@ const Login = () => {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
         await setDoc(doc(db, 'users', userCred.user.uid), {
           coins: 100,
+          email: userCred.user.email,
         });
       } else {
         await signInWithEmailAndPassword(auth, email, password);
@@ -25,9 +36,12 @@ const Login = () => {
     }
   }
 
+
+
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-green-900 px-4">
-      <div className="w-full max-w-md bg-[#d3af37] text-white rounded-2xl shadow-2xl p-8">
+    <div className="flex items-center justify-center min-h-screen px-4" style={{ backgroundColor: '#0a174e' }}>
+      <div className="w-full max-w-md bg-black text-white rounded-2xl shadow-2xl p-8">
         <h2 className="text-3xl font-bold text-center mb-6">
           {isSignUp ? 'Sign Up' : 'Login'}
         </h2>
@@ -39,7 +53,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             required
-            className="w-full px-4 py-2 bg-black text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 bg-white text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="password"
@@ -47,11 +61,17 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
-            className="w-full px-4 py-2 bg-black text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 bg-white text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <button
             type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold transition duration-200"
+            className="w-full py-2 rounded-lg font-semibold transition duration-200"
+            style={{
+              backgroundColor: '#0a174e',
+              color: 'white',
+            }}
+            onMouseOver={e => e.currentTarget.style.backgroundColor = '#13327c'}
+            onMouseOut={e => e.currentTarget.style.backgroundColor = '#0a174e'}
           >
             {isSignUp ? 'Sign Up' : 'Login'}
           </button>
