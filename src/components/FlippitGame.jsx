@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Wallet from './Wallet';
+import './../index.css';
 
 const FlippitGame = () => {
   const { logout, coins, placeBet } = useAuth();
   const navigate = useNavigate();
   const [walletOpen, setWalletOpen] = useState(false);
+  const [flipping, setFlipping] = useState(false);
+  const [flipResult, setFlipResult] = useState('Heads');
 
   
   const [bet, setBet] = useState(10);
@@ -31,9 +34,17 @@ const FlippitGame = () => {
       setError('Not enough coins!');
       return;
     }
-
-    const flip = placeBet(bet, guess);
-    setResult(flip);
+    setFlipping(true);
+    
+    setTimeout(() => {
+      const result = Math.random() < 0.5 ? 'heads' : 'tails';
+      setFlipResult(result);
+      const flip = placeBet(bet, guess);
+      setResult(flip);
+      setFlipping(false);
+    }, 1000);
+    // const flip = placeBet(bet, guess);
+    // setResult(flip);
   };
 
   return (
@@ -81,8 +92,16 @@ const FlippitGame = () => {
       <div className="pt-24 max-w-xl mx-auto">
         <div className="bg-black text-white rounded-2xl shadow-2xl p-4 sm:p-8 mt-8">
           <h2 className="text-xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">Flippit</h2>
-
+            
           {/* Coin Flip Game UI */}
+            <div className="flex flex-col gap-4 items-center">
+            {/* Add Coin Animation */}
+            <div className={`coin ${flipping ? 'flipping' : ''}`}>
+              <div className="coin-face">
+                {flipping ? '' : flipResult.toUpperCase()}
+              </div>
+            </div>
+
           <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto justify-center items-center">
               <input
@@ -123,7 +142,10 @@ const FlippitGame = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
 export default FlippitGame;
+
+
